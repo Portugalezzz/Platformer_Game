@@ -18,16 +18,29 @@ public class Movable_monster : Monster
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
         bullet = Resources.Load<Bullet>("Bullet");
+        lives = 5;
         
     }
 
     protected override void OnTriggerEnter2D(Collider2D collider)
     {
         Unit unit = collider.GetComponent<Unit>();
+
+
+
+
         if (unit && unit is Character)
         {
-            if (Mathf.Abs(unit.transform.position.x - transform.position.x) < 0.3F) RecieveDamage();
-            else unit.RecieveDamage();
+            //Debug.Log("TOUCH");
+            //  Debug.Log("ABS  " + Mathf.Abs(unit.transform.position.x - transform.position.x));
+            if (Mathf.Abs(unit.transform.position.x - transform.position.x) < 0.8F)
+            {
+                ((Character)unit).Jump();
+                RecieveDamage();
+
+              //  Debug.Log("Jump");
+            }
+            else if (!Character.damaged) unit.RecieveDamage();
         }
 
     }
@@ -48,8 +61,21 @@ public class Movable_monster : Monster
     protected override void Start()
     {
         direction = transform.right;
+        
+        if (Random.value < 0.5 )
+        {
+            direction *= -1;
+        }
+            
+
+
     }
 
     // Update is called once per frame
 
+    public override void RecieveDamage()
+    {
+        base.RecieveDamage();
+      //  Debug.Log("MonsterHealth_MONSTER: " + lives);
+    }
 }

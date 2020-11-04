@@ -5,7 +5,7 @@ using UnityEngine;
 public class Monster : Unit
 {
     
-    public int lives = 2;
+    //public int lives = 2;
 
     protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
@@ -27,7 +27,7 @@ public class Monster : Unit
 
     protected virtual void Awake()
     {
-        
+        lives = 2;
     }
 
     // Start is called before the first frame update
@@ -40,5 +40,10 @@ public class Monster : Unit
     protected virtual void Update()
     {
         
+    }
+    public override void RecieveDamage()
+    {
+        base.RecieveDamage();
+      // Debug.Log("MonsterHealth_MONSTER: " + lives);
     }
 }

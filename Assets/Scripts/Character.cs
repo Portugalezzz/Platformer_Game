@@ -6,14 +6,16 @@ public class Character : Unit
 {
     [SerializeField]
     private float speed = 3.0F;
+    // [SerializeField]
+    // private int lives = 5;
     [SerializeField]
-    private int lives = 5;
-    [SerializeField]
-
+    private float freeze = 0.5F;
+    public static bool squat = false;
+    public static bool damaged = false;
     private float jumpforce = 15.0F;
 
     private bool isGrounded = false;
-
+    
     private Bullet bullet;
 
     public int Lives
@@ -60,9 +62,11 @@ public class Character : Unit
     }
 
     
-    private void Jump()
+    public void Jump()
     {
+        rigidbody.velocity = Vector2.zero;
         rigidbody.AddForce(transform.up * jumpforce, ForceMode2D.Impulse);
+        
         
     }
     
@@ -78,7 +82,7 @@ public class Character : Unit
 
     private void Shoot()
     {
-        Vector3 position = transform.position; position.y += 0.8F; position.x += 0.4F;
+        Vector3 position = transform.position; position.y += 0.8F;
         Bullet newBullet = Instantiate(bullet, position, bullet.transform.rotation) as Bullet;
         newBullet.Parent = gameObject;
         newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
@@ -90,7 +94,10 @@ public class Character : Unit
     {
         Lives --;
         rigidbody.velocity = Vector3.zero;
-        rigidbody.AddForce(transform.up * 10.0F, ForceMode2D.Impulse);
+        rigidbody.AddForce(transform.up * 5.0F, ForceMode2D.Impulse);
+        rigidbody.AddForce(transform.right * -4.0F, ForceMode2D.Impulse);
+        damaged = true;
+        StartCoroutine(DamageFreeze(freeze));
 
 
         Debug.Log(lives);
@@ -99,7 +106,12 @@ public class Character : Unit
 
 
 
-
+    IEnumerator DamageFreeze(float timeInSec)
+    {
+        yield return new WaitForSeconds(timeInSec);
+        damaged = false;
+        yield break;
+    }
 
 
 
@@ -120,11 +132,20 @@ public class Character : Unit
     {
         if(isGrounded) State = CharState.Idle;
         if (Input.GetButtonDown("Fire1")) Shoot();
-        if (Input.GetButton("Horizontal")) Run();
+        if (Input.GetButton("Horizontal") && !damaged) Run();
+        //if (Input.GetButtonDown("Vertical")) squat = true;
+        //else squat = false;
+
         if (isGrounded && Input.GetButtonDown("Jump")) Jump();
+      
         if (Input.GetButton("Fire3")) speed = 6.0F;
             else speed = 3.0F;
+        Debug.Log("Velocity " +rigidbody.velocity);
+    }
 
+    private void Squat()
+    {
+        
     }
 
     private void FixedUpdate()

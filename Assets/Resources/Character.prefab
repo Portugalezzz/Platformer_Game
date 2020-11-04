@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 6045900184600789558}
   - component: {fileID: 6045900184600789554}
   m_Layer: 0
-  m_Name: Character 1
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.7}
+  m_Offset: {x: 0, y: 0.71}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -175,9 +175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291a457fdd44b084893420827e7f5a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
   lives: 5
-  jumpforce: 15
+  speed: 3
+  freeze: 0.5
 --- !u!95 &6045900184600789554
 Animator:
   serializedVersion: 3

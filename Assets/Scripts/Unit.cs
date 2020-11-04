@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    int lives;
+    public int lives;
     public virtual void RecieveDamage()
     {
         lives --;
