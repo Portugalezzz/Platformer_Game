@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+   // [SerializeField]
+    public static int coins;
     public int lives;
+    
     public virtual void RecieveDamage()
     {
         lives --;
@@ -16,21 +19,18 @@ public class Unit : MonoBehaviour
         }
             
     }
-    
+
+    public void AddCoin()
+    {
+        coins++;
+        
+        Debug.Log("Coins " + coins);
+    }
+
     protected virtual void Die()
     {
         Destroy(gameObject);
     }
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

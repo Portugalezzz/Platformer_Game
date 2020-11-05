@@ -18,7 +18,7 @@ public class Monster : Unit
         }
 
         Unit unit = collider.GetComponent<Unit>();
-        if (unit && unit is Character)
+        if (!Character.damaged && unit && unit is Character)
         {
             unit.RecieveDamage();
             //Debug.Log("Damage");

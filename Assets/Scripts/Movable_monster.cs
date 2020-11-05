@@ -18,7 +18,7 @@ public class Movable_monster : Monster
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
         bullet = Resources.Load<Bullet>("Bullet");
-        lives = 5;
+        lives = 2;
         
     }
 
@@ -53,7 +53,7 @@ public class Movable_monster : Monster
     private void move()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * 0.5F + transform.right * direction.x * 0.55F, 0.01F);
-        if (colliders.Length > 0 && colliders.All(x => !x.GetComponent<Character>())) direction.x *= -1.0F;
+        if (colliders.Length > 0 && colliders.All(x => !x.GetComponent<Character>())&& colliders.All(x => !x.GetComponent<Coin>())) direction.x *= -1.0F;
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
     }
 

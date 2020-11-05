@@ -12,6 +12,7 @@ public class Character : Unit
     private float freeze = 0.5F;
     public static bool squat = false;
     public static bool damaged = false;
+    public static bool flash = false;
     private float jumpforce = 15.0F;
 
     private bool isGrounded = false;
@@ -106,6 +107,7 @@ public class Character : Unit
 
 
 
+
     IEnumerator DamageFreeze(float timeInSec)
     {
         yield return new WaitForSeconds(timeInSec);
@@ -139,8 +141,14 @@ public class Character : Unit
         if (isGrounded && Input.GetButtonDown("Jump")) Jump();
       
         if (Input.GetButton("Fire3")) speed = 6.0F;
-            else speed = 3.0F;
-        Debug.Log("Velocity " +rigidbody.velocity);
+        else speed = 3.0F;
+
+        /*
+        if (Mathf.Abs(rigidbody.velocity.y) > 10) flash = true;
+        else flash = false;
+
+        Debug.Log("velocity " + Mathf.Abs(rigidbody.velocity.y));
+        */
     }
 
     private void Squat()
